@@ -30,7 +30,7 @@ app.get('/repos', function (req, res) {
     if (error) {
       console.log('Error querying mongo:', error);
     } else {
-      res.send(results);
+      res.status(200).send(results);
     }
   });
 });
