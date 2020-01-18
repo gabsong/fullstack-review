@@ -10,10 +10,19 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
+  github.getReposByUsername(req.body.username, (error, body) => {
+    if (error) {
+      console.log('Error in getReposByUsername', error);
+    } else {
+      mongo.save(body, (error, success) => {
+        if (error) {
+          // handle "existing primary key" error
+        } else {
+          res.status(201).send(`Repos from ${req.body.username} added to the database`);
+        }
+      });
+    }
+  });
 });
 
 app.get('/repos', function (req, res) {

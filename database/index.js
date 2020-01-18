@@ -12,10 +12,20 @@ const repoSchema = new mongoose.Schema({
 
 const Repo = mongoose.model('Repo', repoSchema);
 
-let save = (/* TODO */) => {
-  // TODO: Your code here
-  // This function should save a repo or repos to
-  // the MongoDB
+const save = (body, callback) => {
+  const repos = JSON.parse(body).map((object) => {
+    const repo = new Repo({
+      _id: object.id,
+      user_name: object.owner.login,
+      repo_name: object.name,
+      stargazers_count: object.stargazers_count,
+      watchers_count: object.watchers_count,
+      forks_count: object.forks_count
+    });
+    return repo;
+  });
+
+  Repo.create(repos, callback);
 }
 
 module.exports.save = save;
