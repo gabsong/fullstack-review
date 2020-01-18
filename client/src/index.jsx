@@ -11,19 +11,40 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-    this.search = this.search.bind(this)
+    this.search = this.search.bind(this);
+    this.getRepos = this.getRepos.bind(this);
+  }
+
+  componentDidMount () {
+    this.getRepos();
+  }
+
+  getRepos () {
+    axios.get('/repos')
+    .then((response) => {
+      this.setState({ repos: response.data });
+    })
+    .catch((error) => {
+      console.log('Error log from axios.get:', error);
+    })
+    .finally(() => {
+      console.log('Invoked Promise.prototype.finally()');
+    });
   }
 
   search (term) {
     console.log(`${term} was searched`);
-    axios.post('http://127.0.0.1:1128/repos', {
+    axios.post('/repos', {
       data: term
     })
-    .then(function (response) {
-      console.log(response);
+    .then((response) => {
+      this.getRepos();
     })
-    .catch(function (error) {
-      console.log(error);
+    .catch((error) => {
+      console.log('Error log from axios.post:', error);
+    })
+    .finally(() => {
+      console.log('Invoked Promise.prototype.finally()');
     });
   }
 

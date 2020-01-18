@@ -6,7 +6,7 @@ const repoSchema = new mongoose.Schema({
   user_name: String,
   user_url: String,
   repo_name: String,
-  html_url: String,
+  repo_url: String,
   stargazers_count: Number,
   watchers_count: Number,
   forks_count: Number
@@ -21,7 +21,7 @@ const save = (body, callback) => {
       user_name: object.owner.login,
       user_url: object.owner.url,
       repo_name: object.name,
-      html_url: object.html_url,
+      repo_url: object.html_url,
       stargazers_count: object.stargazers_count,
       watchers_count: object.watchers_count,
       forks_count: object.forks_count
