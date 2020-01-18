@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/fetcher');
+// mongoose.connect('mongodb://localhost/fetcher');
+mongoose.connect(process.env.MONGODB_URI);
 
 const repoSchema = new mongoose.Schema({
   _id: Number, // primary key
