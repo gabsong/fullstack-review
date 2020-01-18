@@ -16,15 +16,15 @@ class App extends React.Component {
 
   search (term) {
     console.log(`${term} was searched`);
-    // axios.post('localhost:1128/repos', {
-    //   // data
-    // })
-    // .then((response) => {
-    //   console.log('good');
-    // })
-    // .catch((error) => {
-    //   console.log('bad');
-    // });
+    axios.post('http://127.0.0.1:1128/repos', {
+      data: term
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render () {

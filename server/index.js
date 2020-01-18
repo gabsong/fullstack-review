@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 
 app.post('/repos', function (req, res) {
-  github.getReposByUsername(req.body.username, (error, body) => {
+  github.getReposByUsername(req.body.data, (error, body) => {
     if (error) {
       console.log('Error in getReposByUsername', error);
     } else {
@@ -18,7 +18,7 @@ app.post('/repos', function (req, res) {
         if (error) {
           // handle "existing primary key" error
         } else {
-          res.status(201).send(`Repos from ${req.body.username} added to the database`);
+          res.status(201).send(`Repos from ${req.body.data} added to the database`);
         }
       });
     }
