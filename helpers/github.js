@@ -15,13 +15,12 @@ let getReposByUsername = (username, callback) => {
     }
   };
 
-  request.get(options, function (error, response, body) {
+  request.get(options, (error, response, body) => {
     if (error) {
-      console.log('Error in request.get');
-      // callback(error);
+      console.log('Error in request.get', error);
+      callback(error, null);
     } else {
-      // console.log('Request successful:', body);
-      // callback(response);
+      callback(null, body); // === response.body
     }
   });
 }
