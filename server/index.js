@@ -26,8 +26,13 @@ app.post('/repos', function (req, res) {
 });
 
 app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+  mongo.find((error, results) => {
+    if (error) {
+      console.log('Error querying mongo:', error);
+    } else {
+      res.send(results);
+    }
+  });
 });
 
 let port = 1128;

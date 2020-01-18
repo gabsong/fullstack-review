@@ -28,4 +28,12 @@ const save = (body, callback) => {
   Repo.create(repos, callback);
 }
 
+const find = (callback) => {
+  const query = Repo.find();
+
+  // sort and limit the query
+  query.sort({ "stargazers_count": -1 }).limit(25).exec(callback);
+}
+
 module.exports.save = save;
+module.exports.find = find;
