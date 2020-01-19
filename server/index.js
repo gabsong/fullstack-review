@@ -12,13 +12,14 @@ app.use(morgan('dev'));
 app.post('/repos', function(req, res) {
   github.getReposByUsername(req.body.data, (error, body) => {
     if (error) {
-      console.log('Error in getReposByUsername', error);
+      console.log('Error in getReposByUsername:', error);
     } else {
       mongo.save(body, (error, body, next) => {
         if (error) {
           // error handling for duplicate primary keys
           // http://thecodebarbarian.com/mongoose-error-handling.html
           if (error.name === 'MongoError' && error.code === 11000) {
+            console.log('Duplicate primary key:', error);
             // next(new Error('There was a duplicate key error'));
           } else {
             // next();
